@@ -40,29 +40,38 @@ export default class Counter extends React.Component<IProps> {
     );
   }
 
+  /**
+   * We can create this component with all the expected combinations of parameters
+   */
   public test1(): JSX.Element {
-    return <Counter reqiredNumber={2} />;
+    return (
+      <div>
+        <Counter reqiredNumber={2} />
+        <Counter reqiredNumber={2} optionalNumberWithDefault={4} />
+        <Counter reqiredNumber={2} optionalNumber={3} optionalNumberWithDefault={4} />
+        <Counter reqiredNumber={2} optionalNumber={3} />
+      </div>
+    );
   }
 
-  public test2(): JSX.Element {
-    return <Counter reqiredNumber={2} optionalNumberWithDefault={4} />;
+  /**
+   * Creating variables of type IProps doesn't work the same way though
+   */
+  public test2() {
+    const a: IProps = { reqiredNumber: 0 };
+    const b: IProps = { reqiredNumber: 0, optionalNumberWithDefault: 0 };
+    const c: IProps = { reqiredNumber: 0, optionalNumber: 0, optionalNumberWithDefault: 0 };
+    const d: IProps = { reqiredNumber: 0, optionalNumber: 0 };
+    return { a, b, c, d };
   }
 
-  public test3(): JSX.Element {
-    return <Counter reqiredNumber={2} optionalNumber={3} optionalNumberWithDefault={4} />;
-  }
-
-  public test4(): JSX.Element {
-    return <Counter reqiredNumber={2} optionalNumber={3} />;
-  }
-
-  public testX() {
-    // these don't work the same way though!
-    // we could declare type IProps = { ... } & Partial<DefaultProps>, but then we're back to using non-null assertion operators
-    // const a: IProps = { reqiredNumber: 0 };
-    // const b: IProps = { reqiredNumber: 0, optionalNumberWithDefault: 0 };
-    // const c: IProps = { reqiredNumber: 0, optionalNumber: 0, optionalNumberWithDefault: 0 };
-    // const d: IProps = { reqiredNumber: 0, optionalNumber: 0 };;
+  /**
+   * We can declare type IProps = { ... } & Partial<DefaultProps>, but then we're back to using non-null assertion operators
+   */
+  public test3() {
+    type IProps2 = { requiredNumber: number, optionalNumber?: number } & Partial<IDefaultProps>;
+    const x: IProps2 = { requiredNumber: 0 };
+    return x;
   }
 
 }
