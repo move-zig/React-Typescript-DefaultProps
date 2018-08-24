@@ -58,6 +58,7 @@ export default class Counter extends React.Component<IProps> {
 
   public testX() {
     // these don't work the same way though!
+    // we could declare type IProps = { ... } & Partial<DefaultProps>, but then we're back to using non-null assertion operators
     // const a: IProps = { reqiredNumber: 0 };
     // const b: IProps = { reqiredNumber: 0, optionalNumberWithDefault: 0 };
     // const c: IProps = { reqiredNumber: 0, optionalNumber: 0, optionalNumberWithDefault: 0 };
