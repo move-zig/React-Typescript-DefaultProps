@@ -20,26 +20,43 @@ export default class Counter extends React.Component<IProps> {
   };
 
   public render() {
-    const a = this.props.reqiredNumber * this.props.reqiredNumber;
-
-    let b: number;
-    if (typeof this.props.optionalNumber === 'undefined') {
-      b = 0;
-    } else {
-      b = this.props.optionalNumber * this.props.optionalNumber;
-    }
-
-    const c = this.props.optionalNumberWithDefault * this.props.optionalNumberWithDefault;
-
-    return (
-      <table>
-        <tbody>
-          <tr><td>a</td><td>{a}</td></tr>
-          <tr><td>b</td><td>{b}</td></tr>
-          <tr><td>c</td><td>{c}</td></tr>
-        </tbody>
-      </table>
+     return (
+      <div>
+        <p>I call toFixed on each of the props to show that typescript understands that the value is not undefined.</p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Required Attribute</td>
+              <td>{this.props.reqiredNumber.toFixed(0)}</td>
+            </tr>
+            <tr>
+              <td>Optional Attribute</td>
+              <td>{typeof this.props.optionalNumber === 'undefined' ? 0 : this.props.optionalNumber.toFixed(0)}</td>
+            </tr>
+            <tr>
+              <td>Optional Attribute with Default</td>
+              <td>{this.props.optionalNumberWithDefault.toFixed(0)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     );
+  }
+
+  public test1(): JSX.Element {
+    return <Counter reqiredNumber={2} />;
+  }
+
+  public test2(): JSX.Element {
+    return <Counter reqiredNumber={2} optionalNumberWithDefault={4} />;
+  }
+
+  public test3(): JSX.Element {
+    return <Counter reqiredNumber={2} optionalNumber={3} optionalNumberWithDefault={4} />;
+  }
+
+  public test4(): JSX.Element {
+    return <Counter reqiredNumber={2} optionalNumber={3} />;
   }
 
 }
