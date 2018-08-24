@@ -1,15 +1,12 @@
 import * as React from 'react';
 
 interface IDefaultProps {
-  /** optional attribute -- no typeguard or non-null assertion operator required */
-  optionalNumberWithDefault: number;
+  optionalNumberWithDefault: number; // no typeguard or non-null assertion operator required
 }
 
 type IProps = {
-  /** required attribute */
   reqiredNumber: number;
-  /** optional attribute -- typeguard or non-null assertion operator will be needed */
-  optionalNumber?: number;
+  optionalNumber?: number; // typeguard or non-null assertion operator will be needed
 } & IDefaultProps
 
 export default class Counter extends React.Component<IProps> {
@@ -31,7 +28,7 @@ export default class Counter extends React.Component<IProps> {
             </tr>
             <tr>
               <td>Optional Attribute</td>
-              <td>{typeof this.props.optionalNumber === 'undefined' ? 0 : this.props.optionalNumber.toFixed(0)}</td>
+              <td>{typeof this.props.optionalNumber === 'undefined' ? 'not supplied' : this.props.optionalNumber.toFixed(0)}</td>
             </tr>
             <tr>
               <td>Optional Attribute with Default</td>
@@ -57,6 +54,14 @@ export default class Counter extends React.Component<IProps> {
 
   public test4(): JSX.Element {
     return <Counter reqiredNumber={2} optionalNumber={3} />;
+  }
+
+  public testX() {
+    // these don't work the same way though!
+    // const a: IProps = { reqiredNumber: 0 };
+    // const b: IProps = { reqiredNumber: 0, optionalNumberWithDefault: 0 };
+    // const c: IProps = { reqiredNumber: 0, optionalNumber: 0, optionalNumberWithDefault: 0 };
+    // const d: IProps = { reqiredNumber: 0, optionalNumber: 0 };;
   }
 
 }
